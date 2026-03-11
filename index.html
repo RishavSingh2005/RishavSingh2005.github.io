@@ -7,327 +7,450 @@
 <meta name="description" content="Portfolio of Rishav Singh – Data Science student exploring AI, ML, and intelligent system design." />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* === Root Theme Variables === */
-:root {
-  --bg:#020617;
-  --surface:#0f172a;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-  --accent:#38bdf8;
-  --accent-soft:rgba(56,189,248,0.15);
+:root{
+  --accent: #38bdf8;
+  --accent-soft: rgba(56,189,248,0.15);
+  --transition-speed: 0.5s;
+  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #0b1c3a, #020617);
 }
 
-body.day {
-  --bg:#fefefe;
-  --surface:#e2e8f0;
-  --text:#111827;
-  
-  --muted:#6b7280;
-  --accent:#3b82f6;
-  --accent-soft:rgba(59,130,246,0.15);
+/* Day Theme */
+body.day{
+  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #e2e8f0, #fefefe);
+  --surface: #e2e8f0;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59,130,246,0.15);
+  --header-gradient: linear-gradient(120deg, #a5f3fc, #60a5fa);
+  --card-bg: #ffffff;
+  --card-border: rgba(0,0,0,0.08);
+  --footer-bg: #fefefe;
 }
 
-body.night {
-  --bg:#020617;
-  --surface:#0f172a;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-  --accent:#38bdf8;
-  --accent-soft:rgba(56,189,248,0.15);
+/* Night Theme */
+body.night{
+  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #0b1c3a, #020617);
+  --surface: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56,189,248,0.15);
+  --header-gradient: linear-gradient(120deg, #0f172a, #0b1c3a);
+  --card-bg: #1e293b;
+  --card-border: rgba(255,255,255,0.08);
+  --footer-bg: #020617;
 }
 
-/* === Global Styles === */
-* { box-sizing: border-box; margin:0; padding:0; }
-body {
+/* General styles */
+body{
+  margin:0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(1200px 600px at 20% -10%, #0b1c3a, var(--bg));
+  background: var(--bg-gradient);
   color: var(--text);
-  line-height: 1.7;
-  overflow-x: hidden;
-  transition: background 0.5s, color 0.5s;
+  line-height:1.7;
+  transition: background var(--transition-speed), color var(--transition-speed);
+  overflow-x:hidden;
 }
-canvas { position: fixed; inset:0; z-index: -1; }
-.container { max-width: 1100px; margin:auto; padding:96px 24px; }
 
-/* === Headers === */
-header { min-height: 90vh; display:flex; flex-direction:column; justify-content:center; }
-header h1 { font-size:64px; font-weight:700; margin-bottom:16px; }
-header .tagline { font-size:22px; color: var(--muted); max-width:680px; }
-.cta { margin-top:36px; }
-.cta a {
-  display:inline-block; margin-right:18px; padding:12px 22px;
-  border-radius:10px; text-decoration:none; font-weight:500;
-  transition: transform .3s;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:96px 24px;
 }
-.cta a.primary { background:var(--accent); color:#020617; }
-.cta a.secondary { border:1px solid var(--accent); color:var(--accent); }
-.cta a:hover { transform: translateY(-3px); }
 
-/* === Focus / Highlights === */
-.focus { margin-top:60px; }
-.focus-grid { display:flex; gap:24px; flex-wrap:wrap; }
-.focus-item {
-  padding:14px 20px; border-radius:12px;
-  background: var(--accent-soft); color: var(--accent);
-  font-size:15px; font-weight:500; transition: transform .3s;
+section{
+  margin-top:120px;
 }
-.focus-item:hover { transform: translateY(-4px); }
 
-/* === Cards === */
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.08); border-radius:18px;
-  padding:36px; transition: transform .3s, border-color .3s;
+h2{
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:28px;
+  color: var(--accent);
 }
-.card:hover { transform: translateY(-6px); border-color: var(--accent); }
 
-/* === Skills === */
-.skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
-.skill-block h3 { font-size:18px; font-weight:500; margin-bottom:10px; }
-.skill-block p { color: var(--muted); font-size:15px; }
-.skill-dots { margin-top:8px; }
-.skill-dot {
-  width:10px; height:10px; border-radius:50%; background: var(--accent);
-  display:inline-block; margin-right:4px; opacity:0; transform:translateY(10px);
+p{
+  max-width:720px;
+}
+
+header{
+  min-height:90vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:40px 20px;
+  border-radius:0 0 40px 40px;
+  background: var(--header-gradient);
+  transition: background var(--transition-speed);
+}
+
+header h1{
+  font-size:64px;
+  font-weight:700;
+  margin:0 0 16px 0;
+}
+
+header .tagline{
+  font-size:22px;
+  color: var(--muted);
+  max-width:680px;
+}
+
+.cta{
+  margin-top:36px;
+}
+
+.cta a{
+  display:inline-block;
+  margin-right:18px;
+  padding:12px 22px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:500;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.cta a.primary{
+  background: var(--accent);
+  color:#020617;
+}
+
+.cta a.secondary{
+  border:1px solid var(--accent);
+  color: var(--accent);
+}
+
+.cta a:hover{
+  transform:translateY(-3px);
+}
+
+/* Focus */
+.focus{margin-top:60px;}
+.focus-grid{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.focus-item{
+  padding:14px 20px;
+  border-radius:12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size:15px;
+  font-weight:500;
+  transition: transform 0.3s, background 0.3s;
+}
+.focus-item:hover{
+  transform:translateY(-4px);
+}
+
+/* Card */
+.card{
+  background: var(--card-bg);
+  border-radius:18px;
+  padding:36px;
+  border:1px solid var(--card-border);
+  transition: transform 0.3s, border-color 0.3s, background 0.5s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color: var(--accent);
+}
+
+/* Skills */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+.skill-block h3{
+  margin:0 0 10px 0;
+  font-size:18px;
+  font-weight:500;
+}
+.skill-block p{
+  color: var(--muted);
+  font-size:15px;
+}
+.skill-dots{
+  margin-top:8px;
+}
+.skill-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background: var(--accent);
+  display:inline-block;
+  margin-right:4px;
+  opacity:0;
+  transform:translateY(10px);
   transition:0.4s ease;
 }
-.skill-dot.active { opacity:1; transform:translateY(0); }
-
-/* === Projects === */
-.projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; }
-.project {
-  background: var(--surface); border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px; padding:26px; transition: transform .3s, border-color .3s, box-shadow .3s;
+.skill-dot.active{
+  opacity:1;
+  transform:translateY(0);
 }
-.project:hover { transform:translateY(-6px); border-color:var(--accent); box-shadow:0 10px 20px rgba(0,0,0,0.2); }
-.project h3 { font-size:19px; margin-bottom:8px; }
-.project .stack { font-size:14px; color: var(--accent); margin-bottom:10px; }
-.project p { font-size:15px; color: var(--muted); }
-.project a { display:inline-block; margin-top:12px; color: var(--accent); font-size:14px; transition:color .3s; }
-.project a:hover { color: #22d3ee; }
 
-/* === Timeline / Learning Journey === */
-.timeline { border-left:2px solid rgba(255,255,255,0.1); padding-left:32px; }
-.step { margin-bottom:36px; }
-.step span { font-size:14px; color:var(--accent); }
-.step p { color:var(--muted); }
+/* Projects */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:28px;
+}
+.project{
+  background: var(--surface);
+  border:1px solid var(--card-border);
+  border-radius:16px;
+  padding:26px;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, background 0.5s;
+}
+.project:hover{
+  transform:translateY(-6px);
+  border-color: var(--accent);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+.project h3{margin:0 0 8px 0;font-size:19px;}
+.project .stack{font-size:14px;color: var(--accent); margin-bottom:10px;}
+.project p{color: var(--muted); font-size:15px;}
+.project a{display:inline-block;margin-top:12px;color: var(--accent);text-decoration:none;font-size:14px;transition:color 0.3s;}
+.project a:hover{color:#22d3ee;}
 
-/* === Links & Footer === */
-.links a { margin-right:22px; text-decoration:none; color:var(--accent); font-weight:500; transition: transform .3s, color .3s; }
-.links a:hover { transform: translateY(-2px); color:#22d3ee; }
-footer { margin-top:140px; text-align:center; color:var(--muted); font-size:14px; }
+/* Timeline */
+.timeline{border-left:2px solid rgba(255,255,255,0.1);padding-left:32px;}
+.step{margin-bottom:36px;}
+.step span{font-size:14px;color: var(--accent);}
+.step p{color: var(--muted);}
 
-/* === Reveal Animations === */
-.reveal { opacity:0; transform:translateY(24px); transition: opacity .8s ease, transform .8s ease; }
-.reveal.active { opacity:1; transform:translateY(0); }
+/* Links */
+.links a{margin-right:22px;text-decoration:none;color: var(--accent);font-weight:500;transition: transform 0.3s, color 0.3s;}
+.links a:hover{transform:translateY(-2px); color:#22d3ee;}
 
-/* === Responsive === */
+/* Footer */
+footer{margin-top:140px;text-align:center;color: var(--muted);font-size:14px;}
+
+/* Reveal animations */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Day/Night toggle button */
+#theme-toggle{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 18px;
+  background: var(--accent);
+  color: #020617;
+  transition: background 0.3s;
+}
+#theme-toggle:hover{
+  background: var(--accent-soft);
+}
+
+/* Responsive */
 @media(max-width:768px){
-  header h1{ font-size:42px; }
-  header .tagline{ font-size:18px; }
-  .container{ padding:72px 20px; }
+  header h1{font-size:42px;}
+  header .tagline{font-size:18px;}
+  .container{padding:72px 20px;}
 }
 </style>
 </head>
-
 <body>
-<!-- Container -->
 <div class="container">
+<header>
+<h1>Rishav Singh</h1>
+<p class="tagline" id="greeting">Data Scientist in the making. Building intelligent systems.</p>
+<div class="cta">
+<a href="#projects" class="primary">View Projects</a>
+<a href="#contact" class="secondary">Contact</a>
+</div>
+<section class="focus">
+<div class="focus-grid">
+<div class="focus-item">Intelligent decision systems</div>
+<div class="focus-item">Data-driven simulations</div>
+<div class="focus-item">Engine-level thinking</div>
+</div>
+</section>
+</header>
 
-  <!-- Hero -->
-  <header>
-    <h1>Rishav Singh</h1>
-    <p class="tagline" id="greeting">Data Scientist in the making. Building intelligent systems.</p>
-    <div class="cta">
-      <a href="#projects" class="primary">View Projects</a>
-      <a href="#contact" class="secondary">Contact</a>
-    </div>
+<section class="reveal">
+<h2>About</h2>
+<div class="card">
+<p>I am a Data Science undergraduate driven by curiosity about how systems think, decide, and evolve. My interests sit at the intersection of data, AI, and system design.</p>
+<p>Rather than chasing surface-level features, I focus on fundamentals, architecture, and long-term thinking.</p>
+</div>
+</section>
 
-    <!-- Focus / Highlights -->
-    <section class="focus">
-      <div class="focus-grid">
-        <div class="focus-item">Intelligent Decision Systems</div>
-        <div class="focus-item">Data-driven Simulations</div>
-        <div class="focus-item">Engine-level Thinking</div>
-      </div>
-    </section>
-  </header>
+<section class="reveal">
+<h2>Skills</h2>
+<div class="skills-grid">
+<div class="skill-block">
+<h3>Data Science & Analytics</h3>
+<p>Exploratory analysis, visualization, insight generation</p>
+<div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span></div>
+</div>
+<div class="skill-block">
+<h3>Machine Learning & AI</h3>
+<p>Model thinking, decision systems, experimentation</p>
+<div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span></div>
+</div>
+<div class="skill-block">
+<h3>Programming</h3>
+<p>Python, SQL, C basics, algorithmic reasoning</p>
+<div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span></div>
+</div>
+</div>
+</section>
 
-  <!-- About -->
-  <section class="reveal">
-    <h2>About</h2>
-    <div class="card">
-      <p>I am a Data Science undergraduate driven by curiosity about how systems think, decide, and evolve. My interests sit at the intersection of data, AI, and system design.</p>
-      <p>Rather than chasing surface-level features, I focus on fundamentals, architecture, and long-term thinking.</p>
-    </div>
-  </section>
+<section id="projects" class="reveal">
+<h2>Projects</h2>
+<div class="projects">
+<div class="project">
+<h3>Self Decision Engine</h3>
+<div class="stack">Python • System Design</div>
+<p>A conceptual engine to model decision-making using constraints, outcomes, and risk patterns.</p>
+<a href="project-decision-engine.html">View details →</a>
+</div>
+<div class="project">
+<h3>Engine Architecture Study</h3>
+<div class="stack">Research • Documentation</div>
+<p>Analysis of modern engine design including ECS, data ownership, and tooling layers.</p>
+</div>
+<div class="project">
+<h3>Logic System Prototypes</h3>
+<div class="stack">System Experiments</div>
+<p>Small-scale experiments exploring state handling, update cycles, and system interaction.</p>
+</div>
+</div>
+</section>
 
-  <!-- Skills -->
-  <section class="reveal">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-block">
-        <h3>Data Science & Analytics</h3>
-        <p>Exploratory analysis, visualization, insight generation</p>
-        <div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span></div>
-      </div>
-      <div class="skill-block">
-        <h3>Machine Learning & AI</h3>
-        <p>Model thinking, decision systems, experimentation</p>
-        <div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span></div>
-      </div>
-      <div class="skill-block">
-        <h3>Programming</h3>
-        <p>Python, SQL, C basics, algorithmic reasoning</p>
-        <div class="skill-dots"><span class="skill-dot"></span><span class="skill-dot"></span></div>
-      </div>
-    </div>
-  </section>
+<section class="reveal">
+<h2>Learning Journey</h2>
+<div class="timeline">
+<div class="step">
+<span>2025 – Present</span>
+<p>Undergraduate study in Data Science with focus on AI and systems.</p>
+</div>
+<div class="step">
+<span>Ongoing</span>
+<p>Independent exploration of decision systems and architecture.</p>
+</div>
+</div>
+</section>
 
-  <!-- Projects -->
-  <section id="projects" class="reveal">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project">
-        <h3>Self Decision Engine</h3>
-        <div class="stack">Python • System Design</div>
-        <p>A conceptual engine to model decision-making using constraints, outcomes, and risk patterns.</p>
-        <a href="project-decision-engine.html">View details →</a>
-      </div>
-      <div class="project">
-        <h3>Engine Architecture Study</h3>
-        <div class="stack">Research • Documentation</div>
-        <p>Analysis of modern engine design including ECS, data ownership, and tooling layers.</p>
-      </div>
-      <div class="project">
-        <h3>Logic System Prototypes</h3>
-        <div class="stack">System Experiments</div>
-        <p>Small-scale experiments exploring state handling, update cycles, and system interaction.</p>
-      </div>
-    </div>
-  </section>
+<section id="contact" class="reveal">
+<h2>Contact</h2>
+<div class="links">
+<a href="resume.pdf" download>Resume</a>
+<a href="https://github.com/RishavSingh2005" target="_blank">GitHub</a>
+<a href="https://www.linkedin.com/in/rishav-singh-0a9886380/" target="_blank">LinkedIn</a>
+</div>
+</section>
 
-  <!-- Learning Journey -->
-  <section class="reveal">
-    <h2>Learning Journey</h2>
-    <div class="timeline">
-      <div class="step">
-        <span>2025 – Present</span>
-        <p>Undergraduate study in Data Science with focus on AI and systems.</p>
-      </div>
-      <div class="step">
-        <span>Ongoing</span>
-        <p>Independent exploration of decision systems and architecture.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="reveal">
-    <h2>Contact</h2>
-    <div class="links">
-      <a href="resume.pdf" download>Resume</a>
-      <a href="https://github.com/RishavSingh2005" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/rishav-singh-0a9886380/" target="_blank">LinkedIn</a>
-    </div>
-  </section>
-
-  <footer id="footer"></footer>
-
+<footer id="footer"></footer>
 </div>
 
-<!-- THREE.JS for 3D Background -->
+<!-- 3D Background -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
-// --- 3D Interactive Background ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 1000);
 camera.position.z = 140;
-const renderer = new THREE.WebGLRenderer({ alpha:true, antialias:true });
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
 const group = new THREE.Group();
 scene.add(group);
+const geo = new THREE.IcosahedronGeometry(3, 0);
+let theme = "night";
+const mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
 
-const geometry = new THREE.IcosahedronGeometry(3,0);
-const material = new THREE.MeshBasicMaterial({ color:0x38bdf8, wireframe:true });
-
-for(let i=0;i<90;i++){
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(
-    (Math.random()-0.5)*240,
-    (Math.random()-0.5)*240,
-    (Math.random()-0.5)*240
-  );
-  group.add(mesh);
+for (let i = 0; i < 90; i++) {
+    const m = new THREE.Mesh(geo, mat);
+    m.position.set((Math.random()-0.5)*240, (Math.random()-0.5)*240, (Math.random()-0.5)*240);
+    group.add(m);
 }
 
-let mx=0, my=0;
-window.addEventListener("mousemove", e => {
-  mx = (e.clientX/innerWidth - 0.5)*2;
-  my = (e.clientY/innerHeight - 0.5)*2;
-});
+let mx = 0, my = 0;
+addEventListener("mousemove", e => { mx = (e.clientX/innerWidth-0.5)*2; my = (e.clientY/innerHeight-0.5)*2; });
 
-function animate(){
-  group.rotation.y += 0.0007;
-  group.rotation.x += 0.0004;
-  camera.position.x += (mx*20 - camera.position.x)*0.04;
-  camera.position.y += (-my*20 - camera.position.y)*0.04;
-  camera.lookAt(scene.position);
-  renderer.render(scene,camera);
-  requestAnimationFrame(animate);
+function animate() {
+    group.rotation.y += 0.0007;
+    group.rotation.x += 0.0004;
+    camera.position.x += (mx*20-camera.position.x)*0.04;
+    camera.position.y += (-my*20-camera.position.y)*0.04;
+    camera.lookAt(scene.position);
+    renderer.render(scene,camera);
+    requestAnimationFrame(animate);
 }
 animate();
 
-window.addEventListener("resize", ()=>{
-  camera.aspect = innerWidth/innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
+addEventListener("resize", () => {
+    camera.aspect = innerWidth/innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);
 });
 
-// --- Scroll Reveal Animations ---
-const reveals = document.querySelectorAll(".reveal");
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) entry.target.classList.add("active");
-  });
-},{ threshold: 0.15 });
-reveals.forEach(el => observer.observe(el));
+// Scroll reveal
+document.querySelectorAll(".reveal").forEach(el=>{
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("active")}})
+  }, {threshold:0.15});
+  obs.observe(el);
+});
 
-// --- Skill Dots Animation ---
-const skillDots = document.querySelectorAll(".skill-dots");
-const dotObserver = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const dots = entry.target.querySelectorAll(".skill-dot");
-      dots.forEach((d,i)=>setTimeout(()=>d.classList.add("active"), i*150));
-    }
-  });
-},{ threshold:0.3 });
-skillDots.forEach(el=>dotObserver.observe(el));
+document.querySelectorAll(".skill-dots").forEach(el=>{
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll(".skill-dot").forEach((d,i)=>setTimeout(()=>d.classList.add("active"),i*150))
+      }
+    })
+  }, {threshold:0.3});
+  obs.observe(el);
+});
 
-// --- Day/Night Mode ---
+// Auto theme based on hour
 const hour = new Date().getHours();
-if(hour>=6 && hour<18) document.body.classList.add("day");
-else document.body.classList.add("night");
+if(hour>=6 && hour<18) document.body.classList.add("day"), theme="day";
+else document.body.classList.add("night"), theme="night";
+mat.color.set(theme==="day"?0x60a5fa:0x38bdf8);
 
-// Toggle button
-const btn = document.createElement("button");
-btn.innerText = "🌞/🌙";
-btn.style.cssText = "position:fixed;bottom:20px;right:20px;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;z-index:1000;";
+// Theme toggle button
+const btn=document.createElement("button");
+btn.id="theme-toggle";
+btn.innerText="🌞/🌙";
 document.body.appendChild(btn);
-btn.onclick = ()=>{ document.body.classList.toggle("day"); document.body.classList.toggle("night"); };
+btn.onclick = ()=>{
+    document.body.classList.toggle("day");
+    document.body.classList.toggle("night");
+    theme = document.body.classList.contains("day") ? "day":"night";
+    mat.color.set(theme==="day"?0x60a5fa:0x38bdf8);
+    document.body.style.background = getComputedStyle(document.body).getPropertyValue('--bg-gradient');
+};
 
-// --- Dynamic Greeting ---
-const greeting = document.getElementById("greeting");
-if(hour>=5 && hour<12) greeting.innerText="Good Morning! I am Rishav Singh, building intelligent systems.";
-else if(hour>=12 && hour<17) greeting.innerText="Good Afternoon! I am Rishav Singh, building intelligent systems.";
-else if(hour>=17 && hour<20) greeting.innerText="Good Evening! I am Rishav Singh, building intelligent systems.";
+// Dynamic greeting
+const greeting=document.getElementById("greeting");
+if(hour>=5&&hour<12) greeting.innerText="Good Morning! I am Rishav Singh, building intelligent systems.";
+else if(hour>=12&&hour<17) greeting.innerText="Good Afternoon! I am Rishav Singh, building intelligent systems.";
+else if(hour>=17&&hour<20) greeting.innerText="Good Evening! I am Rishav Singh, building intelligent systems.";
 else greeting.innerText="Good Night! I am Rishav Singh, building intelligent systems.";
 
-// --- Footer Current Year ---
+// Footer year
 document.getElementById("footer").innerText=`© ${new Date().getFullYear()} Rishav Singh | Exploring AI-driven simulations ⚡`;
 </script>
 </body>
