@@ -16,32 +16,31 @@
 
 /* Day Theme */
 body.day{
-  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #e2e8f0, #fefefe);
-  --surface: #e2e8f0;
-  --text: #111827;
-  --muted: #6b7280;
-  --accent: #3b82f6;
-  --accent-soft: rgba(59,130,246,0.15);
+  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #e0f2ff, #ffffff); /* soft blue to white */
+  --surface: #f0f9ff;          /* card & project background */
+  --text: #0f172a;             /* dark text for contrast */
+  --muted: #64748b;            /* secondary text */
+  --accent: #3b82f6;           /* bright blue highlights */
+  --accent-soft: rgba(59,130,246,0.15); /* hover backgrounds */
   --header-gradient: linear-gradient(120deg, #a5f3fc, #60a5fa);
   --card-bg: #ffffff;
-  --card-border: rgba(0,0,0,0.08);
+  --card-border: rgba(0,0,0,0.1);
   --footer-bg: #fefefe;
 }
 
 /* Night Theme */
 body.night{
-  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #0b1c3a, #020617);
-  --surface: #0f172a;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --accent: #38bdf8;
-  --accent-soft: rgba(56,189,248,0.15);
-  --header-gradient: linear-gradient(120deg, #0f172a, #0b1c3a);
-  --card-bg: #1e293b;
-  --card-border: rgba(255,255,255,0.08);
-  --footer-bg: #020617;
+  --bg-gradient: radial-gradient(1200px 600px at 20% -10%, #2a0000, #100000); /* dark red tones */
+  --surface: #3b0000;          /* card/project backgrounds */
+  --text: #ffe5e5;             /* light pinkish text for contrast */
+  --muted: #ffb3b3;            /* secondary muted text */
+  --accent: #ff4d4d;           /* bright red highlights */
+  --accent-soft: rgba(255,77,77,0.15); /* hover background */
+  --header-gradient: linear-gradient(120deg, #660000, #330000);
+  --card-bg: #4d0000;
+  --card-border: rgba(255,77,77,0.2);
+  --footer-bg: #100000;
 }
-
 /* General styles */
 body{
   margin:0;
