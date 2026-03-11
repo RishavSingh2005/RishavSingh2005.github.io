@@ -362,53 +362,98 @@ footer{margin-top:140px;text-align:center;color: var(--muted);font-size:14px;}
 <footer id="footer"></footer>
 </div>
 
-<!-- 3D Background -->
+<!-- AI/Data Science Background -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
+// ---------- AI/Data Science Background ----------
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 1000);
-camera.position.z = 140;
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+camera.position.z = 120;
+
+const renderer = new THREE.WebGLRenderer({ alpha:true, antialias:true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
-const group = new THREE.Group();
-scene.add(group);
-const geo = new THREE.IcosahedronGeometry(3, 0);
-let theme = "night";
-const mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
+// ---- Particles ----
+const particleCount = 150;
+const particles = new THREE.Group();
+const particleGeometry = new THREE.SphereGeometry(0.8, 8, 8);
 
-for (let i = 0; i < 90; i++) {
-    const m = new THREE.Mesh(geo, mat);
-    m.position.set((Math.random()-0.5)*240, (Math.random()-0.5)*240, (Math.random()-0.5)*240);
-    group.add(m);
+let theme = document.body.classList.contains('day') ? 'day' : 'night';
+let particleColor = theme==='day'? 0x60a5fa : 0x38bdf8;
+const particleMaterial = new THREE.MeshBasicMaterial({ color: particleColor });
+
+for(let i=0;i<particleCount;i++){
+  const p = new THREE.Mesh(particleGeometry, particleMaterial);
+  p.position.set((Math.random()-0.5)*250,(Math.random()-0.5)*150,(Math.random()-0.5)*250);
+  particles.add(p);
+}
+scene.add(particles);
+
+// ---- Data Streams (lines) ----
+const streamMaterial = new THREE.LineBasicMaterial({ color: particleColor, opacity:0.2, transparent:true });
+for(let i=0;i<50;i++){
+  const points = [];
+  const x = (Math.random()-0.5)*250;
+  points.push(new THREE.Vector3(x, -75, (Math.random()-0.5)*250));
+  points.push(new THREE.Vector3(x, 75, (Math.random()-0.5)*250));
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(geometry, streamMaterial);
+  scene.add(line);
 }
 
-let mx = 0, my = 0;
-addEventListener("mousemove", e => { mx = (e.clientX/innerWidth-0.5)*2; my = (e.clientY/innerHeight-0.5)*2; });
+// ---- Mouse tracking ----
+let mx=0,my=0;
+addEventListener('mousemove', e=>{mx=(e.clientX/innerWidth-0.5)*2; my=(e.clientY/innerHeight-0.5)*2;});
 
-function animate() {
-    group.rotation.y += 0.0007;
-    group.rotation.x += 0.0004;
-    camera.position.x += (mx*20-camera.position.x)*0.04;
-    camera.position.y += (-my*20-camera.position.y)*0.04;
-    camera.lookAt(scene.position);
-    renderer.render(scene,camera);
-    requestAnimationFrame(animate);
+function animate(){
+  particles.rotation.y += 0.0005;
+  particles.rotation.x += 0.0003;
+  camera.position.x += (mx*20-camera.position.x)*0.03;
+  camera.position.y += (-my*10-camera.position.y)*0.03;
+  camera.lookAt(scene.position);
+  renderer.render(scene,camera);
+  requestAnimationFrame(animate);
 }
 animate();
 
-addEventListener("resize", () => {
-    camera.aspect = innerWidth/innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
 });
 
-// Scroll reveal
+// ---- Day/Night toggle update ----
+const btn=document.createElement('button');
+btn.id="theme-toggle";
+btn.innerText="🌞/🌙";
+document.body.appendChild(btn);
+btn.onclick=()=>{
+  document.body.classList.toggle('day');
+  document.body.classList.toggle('night');
+  theme = document.body.classList.contains('day')?'day':'night';
+  const colorNew = theme==='day'?0x60a5fa:0x38bdf8;
+  particles.children.forEach(p=>p.material.color.set(colorNew));
+};
+
+// ---- Dynamic greeting ----
+const hour=new Date().getHours();
+const greeting=document.getElementById("greeting");
+if(hour>=5&&hour<12) greeting.innerText="Good Morning! I am Rishav Singh, building intelligent systems.";
+else if(hour>=12&&hour<17) greeting.innerText="Good Afternoon! I am Rishav Singh, building intelligent systems.";
+else if(hour>=17&&hour<20) greeting.innerText="Good Evening! I am Rishav Singh, building intelligent systems.";
+else greeting.innerText="Good Night! I am Rishav Singh, building intelligent systems.";
+
+// ---- Footer year ----
+document.getElementById("footer").innerText=`© ${new Date().getFullYear()} Rishav Singh | Exploring AI-driven simulations ⚡`;
+
+// ---- Scroll reveal ----
 document.querySelectorAll(".reveal").forEach(el=>{
   const obs=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("active")}})
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add("active")}
+    })
   }, {threshold:0.15});
   obs.observe(el);
 });
@@ -423,35 +468,6 @@ document.querySelectorAll(".skill-dots").forEach(el=>{
   }, {threshold:0.3});
   obs.observe(el);
 });
-
-// Auto theme based on hour
-const hour = new Date().getHours();
-if(hour>=6 && hour<18) document.body.classList.add("day"), theme="day";
-else document.body.classList.add("night"), theme="night";
-mat.color.set(theme==="day"?0x60a5fa:0x38bdf8);
-
-// Theme toggle button
-const btn=document.createElement("button");
-btn.id="theme-toggle";
-btn.innerText="🌞/🌙";
-document.body.appendChild(btn);
-btn.onclick = ()=>{
-    document.body.classList.toggle("day");
-    document.body.classList.toggle("night");
-    theme = document.body.classList.contains("day") ? "day":"night";
-    mat.color.set(theme==="day"?0x60a5fa:0x38bdf8);
-    document.body.style.background = getComputedStyle(document.body).getPropertyValue('--bg-gradient');
-};
-
-// Dynamic greeting
-const greeting=document.getElementById("greeting");
-if(hour>=5&&hour<12) greeting.innerText="Good Morning! I am Rishav Singh, building intelligent systems.";
-else if(hour>=12&&hour<17) greeting.innerText="Good Afternoon! I am Rishav Singh, building intelligent systems.";
-else if(hour>=17&&hour<20) greeting.innerText="Good Evening! I am Rishav Singh, building intelligent systems.";
-else greeting.innerText="Good Night! I am Rishav Singh, building intelligent systems.";
-
-// Footer year
-document.getElementById("footer").innerText=`© ${new Date().getFullYear()} Rishav Singh | Exploring AI-driven simulations ⚡`;
 </script>
 </body>
 </html>
