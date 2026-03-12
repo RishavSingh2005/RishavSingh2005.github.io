@@ -2,238 +2,328 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Rishav Raj Singh | Data Science & Decision Intelligence</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rishav Singh | AI & Data Science Portfolio</title>
-<meta name="description" content="Portfolio of Rishav Singh – Data Science and Intelligent Systems enthusiast.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
 :root{
-  --accent: #f59e0b;
-  --accent-soft: rgba(245,158,11,0.15);
-  --bg: #fffaf0;
-  --surface: #fff5e6;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --transition-speed: 0.5s;
+  --bg:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --accent:#2563eb;
+}
+body.dark{
+  --bg:#0b0f19;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --border:#1f2937;
+  --accent:#60a5fa;
 }
 
-body.day{
-  --bg:#fffaf0;
-  --surface:#fff5e6;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --accent:#f59e0b;
-  --accent-soft:rgba(245,158,11,0.15);
-}
-body.night{
-  --bg:#fffbe6;
-  --surface:#fff3d6;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --accent:#f97316;
-  --accent-soft:rgba(249,115,22,0.15);
-}
-
-*{box-sizing:border-box;}
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height:1.7;
-  overflow-x:hidden;
-  transition: background var(--transition-speed), color var(--transition-speed);
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  transition:.3s;
 }
-.container{max-width:1100px; margin:auto; padding:96px 24px;}
-section{margin-top:120px;}
-h2{font-size:28px;font-weight:600;margin-bottom:28px;color:var(--accent);}
-p{max-width:720px;}
+.container{
+  max-width:950px;
+  margin:auto;
+  padding:80px 24px;
+}
+h1,h2,h3{
+  font-family:"Source Serif 4",serif;
+}
+h1{font-size:48px}
+section{margin-top:100px}
+.block{
+  border:1px solid var(--border);
+  padding:32px;
+  border-radius:14px;
+}
+a{color:var(--accent);text-decoration:none;cursor:pointer}
+footer{
+  margin-top:140px;
+  padding-top:32px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+}
 
-/* Header */
-header{min-height:90vh; display:flex; flex-direction:column; justify-content:center; padding:40px 20px; background: linear-gradient(120deg,#fef3c7,#fde68a); border-radius:0 0 40px 40px;}
-header h1{font-size:64px;font-weight:700;margin:0 0 16px 0;}
-header .tagline{font-size:22px;color:var(--muted);max-width:680px;}
-.cta{margin-top:36px;}
-.cta a{display:inline-block;margin-right:18px;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:500;transition: transform 0.3s, background 0.3s, color 0.3s;}
-.cta a.primary{background:var(--accent);color:#fff;}
-.cta a.secondary{border:1px solid var(--accent);color:var(--accent);}
-.cta a:hover{transform:translateY(-3px);}
+nav{margin-top:20px}
+nav a{margin-right:18px;font-weight:500}
 
-/* Focus */
-.focus{margin-top:60px;}
-.focus-grid{display:flex;gap:24px;flex-wrap:wrap;}
-.focus-item{padding:14px 20px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-size:15px;font-weight:500;transition:transform .3s;}
-.focus-item:hover{transform:translateY(-4px);}
+.toggle{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  padding:10px 14px;
+  border:none;
+  border-radius:10px;
+  background:#111827;
+  color:#fff;
+  cursor:pointer;
+  z-index:1000;
+}
 
-/* Card */
-.card{background:var(--surface);border-radius:18px;padding:36px;transition:transform .3s, border-color .3s;}
-.card:hover{transform:translateY(-6px);border-color:var(--accent);}
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:.8s;
+}
+.reveal.active{
+  opacity:1;
+  transform:none;
+}
 
-/* Skills */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
-.skill-block h3{margin:0 0 10px 0;font-size:18px;font-weight:500;}
-.skill-block p{color:var(--muted);font-size:15px;}
-.radial-skill{width:100px;height:100px;position:relative;}
-.radial-skill svg{transform:rotate(-90deg);}
-.radial-skill circle{fill:none;stroke-width:8;stroke-linecap:round;}
-.radial-bg{stroke:#eee;}
-.radial-fg{stroke:var(--accent);stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1s;}
-.skill-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:500;color:var(--text);}
+.click{
+  position:fixed;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:rgba(37,99,235,.3);
+  pointer-events:none;
+  animation:wave .6s ease-out;
+}
+@keyframes wave{
+  to{transform:scale(6);opacity:0}
+}
 
-/* Projects */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;}
-.project{background:var(--surface);border-radius:16px;padding:26px;position:relative;overflow:hidden;transition:transform .3s;}
-.project:hover{transform:translateY(-6px);}
-.project img{width:100%;border-radius:12px;}
-.project h3{margin:12px 0 8px 0;font-size:19px;}
-.project .stack{font-size:14px;color:var(--accent);margin-bottom:10px;}
-.project p{color:var(--muted);font-size:15px;}
-.project a{display:inline-block;margin-top:12px;color:var(--accent);text-decoration:none;font-size:14px;transition:color .3s;}
-.project a:hover{color:#fb923c;}
+/* HDIS */
+.diagram{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.node{
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.3s;
+}
+.node:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+}
+#hdis-info{
+  margin-top:32px;
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
 
-/* Timeline */
-.timeline{display:flex;overflow-x:auto;padding-bottom:20px;gap:24px;}
-.step{min-width:220px;background:var(--surface);padding:20px;border-radius:16px;flex-shrink:0;}
-.step span{font-size:14px;color:var(--accent);}
-.step p{color:var(--muted);}
-
-/* Contact */
-.links a{margin-right:22px;text-decoration:none;color:var(--accent);font-weight:500;transition:transform .3s, color .3s;}
-.links a:hover{transform:translateY(-2px);color:#fb923c;}
-
-/* Footer */
-footer{text-align:center;color:var(--muted);font-size:14px;margin-top:140px;}
-
-/* Reveal animations */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
-.reveal.active{opacity:1;transform:translateY(0);}
-
-/* Toggle */
-#theme-toggle{position:fixed;bottom:20px;right:20px;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;z-index:1000;font-size:18px;background:var(--accent);color:#fff;transition:background .3s;}
-#theme-toggle:hover{background:var(--accent-soft);}
-
-@media(max-width:768px){header h1{font-size:42px;}header .tagline{font-size:18px;}.container{padding:72px 20px;}}
+/* Resume */
+ul{padding-left:18px}
+li{margin-bottom:6px}
 </style>
 </head>
+
 <body>
-<div class="container">
-<header>
-<h1>Rishav Singh</h1>
-<p class="tagline" id="greeting">Data Scientist in the making. Building intelligent systems.</p>
-<div class="cta">
-<a href="#projects" class="primary">View Projects</a>
-<a href="#contact" class="secondary">Contact</a>
-</div>
-<section class="focus">
-<div class="focus-grid">
-<div class="focus-item">Intelligent decision systems</div>
-<div class="focus-item">Data-driven simulations</div>
-<div class="focus-item">Engine-level thinking</div>
-</div>
-</section>
-</header>
 
-<section class="reveal">
+<button class="toggle" id="mode">Research Mode</button>
+
+<!-- HERO -->
+<div class="container reveal">
+<h1>Rishav Raj Singh</h1>
+<p>
+Data Science student focused on decision intelligence,
+system thinking, and human-centric AI.
+</p>
+<nav>
+<a onclick="scrollToId('about')">About</a>
+<a onclick="scrollToId('hdis')">HDIS</a>
+<a onclick="scrollToId('blog')">Blog</a>
+<a onclick="scrollToId('resume')">Resume</a>
+</nav>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="container reveal">
 <h2>About</h2>
-<div class="card">
-<p>I am a Data Science undergraduate driven by curiosity about how systems think, decide, and evolve.</p>
-<p>My focus is on fundamentals, architecture, and long-term intelligent system thinking.</p>
+<div class="block">
+<p>
+I am a first-year B.Tech student specializing in Data Science.
+My interest lies in understanding how intelligent systems
+learn from decisions, failures, and long-term outcomes.
+</p>
 </div>
 </section>
 
-<section class="reveal">
-<h2>Skills</h2>
-<div class="skills-grid">
-<div class="skill-block">
-<h3>Data Science</h3>
-<div class="radial-skill"><svg viewBox="0 0 100 100"><circle class="radial-bg" cx="50" cy="50" r="45"></circle><circle class="radial-fg" cx="50" cy="50" r="45"></circle></svg><div class="skill-label">90%</div></div>
-<p>Exploration, visualization, insights</p>
+<!-- HDIS -->
+<section id="hdis" class="container reveal">
+<h2>Human Decision Intelligence System (HDIS)</h2>
+
+<div class="diagram">
+<div class="node" data-info="Collects historical decisions, context, and timing data.">Decision Ingestion</div>
+<div class="node" data-info="Transforms decisions into numerical and categorical features.">Decision Encoder</div>
+<div class="node" data-info="Learns long-term behavior and decision patterns.">Behavior Model</div>
+<div class="node" data-info="Evaluates success and failure outcomes.">Outcome Analyzer</div>
+<div class="node" data-info="Simulates alternative decision paths.">Counterfactual Engine</div>
+<div class="node" data-info="Recommends decisions with explanations.">Recommendation Layer</div>
 </div>
-<div class="skill-block">
-<h3>Machine Learning</h3>
-<div class="radial-skill"><svg viewBox="0 0 100 100"><circle class="radial-bg" cx="50" cy="50" r="45"></circle><circle class="radial-fg" cx="50" cy="50" r="45"></circle></svg><div class="skill-label">80%</div></div>
-<p>Model building, decision systems</p>
+
+<div id="hdis-info">
+Click a module to see explanation.
 </div>
-<div class="skill-block">
-<h3>Programming</h3>
-<div class="radial-skill"><svg viewBox="0 0 100 100"><circle class="radial-bg" cx="50" cy="50" r="45"></circle><circle class="radial-fg" cx="50" cy="50" r="45"></circle></svg><div class="skill-label">85%</div></div>
-<p>Python, SQL, C, algorithms</p>
-</div>
+
+<p style="margin-top:16px">
+<a href="Human_Decision_Intelligence_System_Report.pdf" target="_blank">
+Read detailed HDIS report (PDF) →
+</a>
+</p>
+</section>
+
+<!-- BLOG -->
+<section id="blog" class="container reveal">
+<h2>Notes & Research</h2>
+
+<a onclick="loadPost('decision')">Decision Intelligence</a> ·
+<a onclick="loadPost('learning')">Learning Data Science</a>
+
+<div id="blog-content" class="block">
+Select a note to read.
 </div>
 </section>
 
-<section id="projects" class="reveal">
-<h2>Projects</h2>
-<div class="projects">
-<div class="project">
-<img src="project1.png" alt="Self Decision Engine">
-<h3>Self Decision Engine</h3>
-<div class="stack">Python • System Design</div>
-<p>Engine modeling decision-making using constraints and risk patterns.</p>
-<a href="#">View Details →</a>
-</div>
-<div class="project">
-<img src="project2.png" alt="Engine Architecture Study">
-<h3>Engine Architecture Study</h3>
-<div class="stack">Research • Documentation</div>
-<p>Analysis of ECS, data ownership, and tooling layers.</p>
-</div>
+<!-- RESUME -->
+<section id="resume" class="container reveal">
+<h2>Resume</h2>
+
+<button onclick="downloadPDF()">Download PDF</button>
+
+<div id="resume-content" class="block">
+<h3>Rishav Raj Singh</h3>
+<p>Indore, Madhya Pradesh, India</p>
+<p>📞 9162032147 | 📧 rishavs8207@gmail.com</p>
+
+<h3>Career Objective</h3>
+<p>
+Aspiring Data Scientist with a keen interest in machine learning and data analysis,
+seeking opportunities to apply statistical thinking and programming skills
+to solve practical problems.
+</p>
+
+<h3>Education</h3>
+<p>
+B.Tech CSE (Data Science) – IPS Academy<br>
+Expected Graduation: 2029
+</p>
+
+<h3>Skills</h3>
+<ul>
+<li>C, Java (basic)</li>
+<li>Python (learning)</li>
+<li>SQL, Excel, Tableau</li>
+<li>Data analysis fundamentals</li>
+</ul>
+
+<h3>Projects</h3>
+<ul>
+<li>Equality Data Analysis – Excel</li>
+<li>Tableau Data Visualization</li>
+<li>Self Decision Engine (Concept)</li>
+<li>Student Performance Analysis</li>
+</ul>
+
+<h3>Certifications</h3>
+<ul>
+<li>Deloitte Data Analytics – Forage</li>
+<li>Spoken Tutorial in C – IIT Bombay</li>
+</ul>
+
+<h3>Languages</h3>
+<p>English, Hindi, Nepali</p>
+
+<h3>Interests</h3>
+<p>Cricket, Travelling</p>
 </div>
 </section>
 
-<section class="reveal">
-<h2>Learning Journey</h2>
-<div class="timeline">
-<div class="step"><span>2025 – Present</span><p>Undergraduate study in Data Science focusing on AI and systems.</p></div>
-<div class="step"><span>Ongoing</span><p>Independent exploration of decision systems and architecture.</p></div>
-</div>
-</section>
-
-<section id="contact" class="reveal">
-<h2>Contact</h2>
-<div class="links">
-<a href="resume.pdf" download>Resume</a>
-<a href="https://github.com/RishavSingh2005" target="_blank">GitHub</a>
-<a href="https://www.linkedin.com/in/rishav-singh-0a9886380/" target="_blank">LinkedIn</a>
-</div>
-</section>
-
-<footer id="footer"></footer>
-</div>
-
-<button id="theme-toggle">🌞/🌙</button>
+<footer class="container">
+© <span id="year"></span> Rishav Raj Singh  
+<br>Shared for academic and portfolio purposes.
+<br><br>
+<a onclick="scrollToId('about')">About</a> ·
+<a onclick="scrollToId('hdis')">HDIS</a> ·
+<a onclick="scrollToId('blog')">Blog</a> ·
+<a onclick="scrollToId('resume')">Resume</a>
+</footer>
 
 <script>
-// Theme toggle
-const toggle=document.getElementById('theme-toggle');
-toggle.onclick=()=>{
-  document.body.classList.toggle('day');
-  document.body.classList.toggle('night');
+/* YEAR */
+document.getElementById("year").innerText=new Date().getFullYear();
+
+/* DARK MODE */
+document.getElementById("mode").onclick=()=>{
+  document.body.classList.toggle("dark");
+  mode.innerText=document.body.classList.contains("dark")
+    ?"Light Mode":"Research Mode";
+};
+
+/* CLICK EFFECT */
+document.addEventListener("click",e=>{
+  const d=document.createElement("div");
+  d.className="click";
+  d.style.left=e.clientX+"px";
+  d.style.top=e.clientY+"px";
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),600);
+});
+
+/* REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("active");
+  });
+},{threshold:0.15});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+/* SCROLL */
+function scrollToId(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-// Greeting
-const hour=new Date().getHours();
-const greeting=document.getElementById('greeting');
-if(hour>=5&&hour<12) greeting.innerText='Good Morning! I am Rishav Singh, building intelligent systems.';
-else if(hour>=12&&hour<17) greeting.innerText='Good Afternoon! I am Rishav Singh, building intelligent systems.';
-else if(hour>=17&&hour<20) greeting.innerText='Good Evening! I am Rishav Singh, building intelligent systems.';
-else greeting.innerText='Good Night! I am Rishav Singh, building intelligent systems.';
-
-// Footer year
-document.getElementById('footer').innerText=`© ${new Date().getFullYear()} Rishav Singh | AI & Data Science Portfolio ⚡`;
-
-// Scroll reveal
-document.querySelectorAll('.reveal').forEach(el=>{
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')})},{threshold:0.15});
-  obs.observe(el);
+/* HDIS */
+document.querySelectorAll(".node").forEach(n=>{
+  n.onclick=()=>{
+    document.getElementById("hdis-info").innerText =
+      n.getAttribute("data-info");
+  };
 });
 
-// Skill radial animation
-document.querySelectorAll('.radial-skill').forEach(skill=>{
-  const fg=skill.querySelector('.radial-fg');
-  const percent=parseInt(skill.querySelector('.skill-label').innerText);
-  fg.style.strokeDashoffset=283 - (283*percent/100);
-});
+/* BLOG */
+const posts={
+decision:`# Decision Intelligence
+Prediction alone is not intelligence.
+
+Decision intelligence focuses on understanding
+why decisions fail and how outcomes evolve.
+This thinking drives the HDIS project.`,
+learning:`# Learning Data Science
+Strong fundamentals and logical thinking
+matter more than shortcuts or tools.`
+};
+
+function loadPost(key){
+  let t=posts[key];
+  t=t.replace(/^# (.*)$/gm,"<h2>$1</h2>").replace(/\n/g,"<br>");
+  document.getElementById("blog-content").innerHTML=t;
+}
+
+/* PDF */
+function downloadPDF(){
+  html2pdf(document.getElementById("resume-content"),{
+    filename:"Rishav_Raj_Singh_Resume.pdf"
+  });
+}
 </script>
+
 </body>
 </html>
