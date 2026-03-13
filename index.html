@@ -2,328 +2,993 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Rishav Raj Singh | Data Science & Decision Intelligence</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+<title>Rishav Singh — Data Science & AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-  --accent:#2563eb;
-}
-body.dark{
-  --bg:#0b0f19;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --border:#1f2937;
-  --accent:#60a5fa;
-}
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c84b2f;
+    --accent2: #2d5f8a;
+    --muted: #7a7265;
+    --rule: #d4cfc4;
+    --white: #fdfaf5;
+  }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.75;
-  transition:.3s;
-}
-.container{
-  max-width:950px;
-  margin:auto;
-  padding:80px 24px;
-}
-h1,h2,h3{
-  font-family:"Source Serif 4",serif;
-}
-h1{font-size:48px}
-section{margin-top:100px}
-.block{
-  border:1px solid var(--border);
-  padding:32px;
-  border-radius:14px;
-}
-a{color:var(--accent);text-decoration:none;cursor:pointer}
-footer{
-  margin-top:140px;
-  padding-top:32px;
-  border-top:1px solid var(--border);
-  color:var(--muted);
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-nav{margin-top:20px}
-nav a{margin-right:18px;font-weight:500}
+  html { scroll-behavior: smooth; font-size: 16px; }
 
-.toggle{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:10px 14px;
-  border:none;
-  border-radius:10px;
-  background:#111827;
-  color:#fff;
-  cursor:pointer;
-  z-index:1000;
-}
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-.reveal{
-  opacity:0;
-  transform:translateY(20px);
-  transition:.8s;
-}
-.reveal.active{
-  opacity:1;
-  transform:none;
-}
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.12s ease;
+  }
+  body:hover .cursor-ring { opacity: 1; }
 
-.click{
-  position:fixed;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:rgba(37,99,235,.3);
-  pointer-events:none;
-  animation:wave .6s ease-out;
-}
-@keyframes wave{
-  to{transform:scale(6);opacity:0}
-}
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    mix-blend-mode: normal;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
 
-/* HDIS */
-.diagram{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-.node{
-  border:1px solid var(--border);
-  padding:20px;
-  border-radius:14px;
-  cursor:pointer;
-  transition:.3s;
-}
-.node:hover{
-  transform:translateY(-4px);
-  border-color:var(--accent);
-}
-#hdis-info{
-  margin-top:32px;
-  padding:24px;
-  border:1px solid var(--border);
-  border-radius:14px;
-}
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
 
-/* Resume */
-ul{padding-left:18px}
-li{margin-bottom:6px}
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Serif Display', serif;
+    font-size: 22vw;
+    color: var(--cream);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+  h1.hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  h1.hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .hero-oneliner {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.65;
+    border-left: 3px solid var(--accent);
+    padding-left: 1.2rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-intro {
+    font-size: 0.95rem;
+    color: var(--ink);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.75s forwards;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: -1;
+  }
+  .btn:hover { color: var(--paper); }
+  .btn:hover::before { transform: scaleX(1); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .btn.primary::before { background: var(--ink); }
+  .btn.primary:hover { color: var(--paper); }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+    animation: scrollLine 2s 1.5s infinite;
+  }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+  h2.section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #2a2520;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p.goal {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--accent2);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.2rem;
+    line-height: 1.5;
+  }
+  .skills-block { }
+  .skill-group { margin-bottom: 2rem; }
+  .skill-group h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.85rem;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { background: var(--ink); color: var(--paper); }
+
+  /* PROJECTS */
+  #projects { background: var(--paper); }
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+  .project-item {
+    border-top: 1px solid var(--rule);
+    padding: 3rem 0;
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 2.5rem;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .project-item:last-child { border-bottom: 1px solid var(--rule); }
+  .project-item:hover { background: var(--cream); margin: 0 -4rem; padding-left: 4rem; padding-right: 4rem; }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding-top: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+  .project-body {}
+  .project-meta {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    color: white;
+    background: var(--accent);
+  }
+  .project-tag.blue { background: var(--accent2); }
+  .project-tag.muted { background: var(--muted); }
+  .project-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  h3.project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+    line-height: 1.1;
+  }
+  .project-subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .project-desc {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #3a3530;
+    max-width: 600px;
+    margin-bottom: 1.2rem;
+  }
+  .project-bullets { list-style: none; margin-bottom: 1.5rem; }
+  .project-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding: 0.25rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .project-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.1rem;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); }
+  .project-arrow {
+    font-size: 1.5rem;
+    color: var(--rule);
+    transition: all 0.2s;
+    padding-top: 0.5rem;
+  }
+  .project-item:hover .project-arrow { color: var(--accent); transform: translateX(4px); }
+
+  /* RESEARCH */
+  #research { background: var(--ink); color: var(--paper); }
+  #research .section-label { color: #c88060; }
+  #research .section-label::before { background: #c88060; }
+  #research h2.section-title { color: var(--paper); }
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .research-interests { }
+  .interest-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #2a2520;
+    align-items: start;
+  }
+  .interest-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: #c88060;
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+  .interest-content h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    color: var(--paper);
+  }
+  .interest-content p {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: #9a9088;
+  }
+  .research-note {
+    background: #1a1714;
+    padding: 2.5rem;
+    border-left: 3px solid #c88060;
+    margin-top: 2rem;
+  }
+  .research-note p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #c8c0b0;
+  }
+
+  /* RESUME */
+  #resume { background: var(--cream); }
+  .resume-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .resume-info { }
+  .resume-block { margin-bottom: 2.5rem; }
+  .resume-block h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .resume-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    gap: 1rem;
+  }
+  .resume-line span:last-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+  }
+  .resume-download { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1.5rem; text-align: center; }
+  .download-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    padding: 3rem;
+    width: 100%;
+    text-align: center;
+  }
+  .download-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+  .download-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 2rem; }
+
+  /* BLOG */
+  #blog { background: var(--white); }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .blog-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .blog-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+  .blog-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+  .blog-card p { font-size: 0.85rem; line-height: 1.7; color: var(--muted); }
+  .blog-coming {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 1rem;
+    display: block;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--paper); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-text h2 { margin-bottom: 1.5rem; }
+  .contact-text p { font-size: 1rem; line-height: 1.8; color: var(--muted); max-width: 400px; }
+  .contact-links { padding-top: 1rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: gap 0.2s;
+  }
+  .contact-link:hover { gap: 2rem; }
+  .contact-link:hover .contact-link-arrow { color: var(--accent); }
+  .contact-link-icon {
+    width: 44px; height: 44px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-link-info {}
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .contact-link-val { font-size: 0.95rem; font-weight: 500; }
+  .contact-link-arrow {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--rule);
+    transition: color 0.2s;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #6a6358;
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer a { color: #8a8070; text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollLine {
+    0%, 100% { width: 40px; opacity: 1; }
+    50% { width: 20px; opacity: 0.4; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* DIVIDERS */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    margin: 1rem 0;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    #home { padding: 0 1.5rem; }
+    .about-grid, .research-grid, .resume-layout, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .project-item { grid-template-columns: 50px 1fr; }
+    .project-arrow { display: none; }
+    .project-item:hover { margin: 0; padding-left: 0; padding-right: 0; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; }
+    .hero-bg-text { font-size: 35vw; opacity: 0.5; }
+    .scroll-hint { left: 1.5rem; }
+  }
 </style>
 </head>
-
 <body>
 
-<button class="toggle" id="mode">Research Mode</button>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">RS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#blog">Notes</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
 <!-- HERO -->
-<div class="container reveal">
-<h1>Rishav Raj Singh</h1>
-<p>
-Data Science student focused on decision intelligence,
-system thinking, and human-centric AI.
-</p>
-<nav>
-<a onclick="scrollToId('about')">About</a>
-<a onclick="scrollToId('hdis')">HDIS</a>
-<a onclick="scrollToId('blog')">Blog</a>
-<a onclick="scrollToId('resume')">Resume</a>
-</nav>
-</div>
+<section id="home">
+  <div class="hero-bg-text">AI</div>
+  <div class="hero-inner">
+    <div class="hero-tag">Data Science &amp; AI Student</div>
+    <h1 class="hero-name">Rishav<br><em>Singh</em></h1>
+    <p class="hero-oneliner">I design AI systems that focus on how humans make decisions — not just predictions.</p>
+    <p class="hero-intro">I am a data science student with a strong interest in building intelligent systems that combine data, behavior, and reasoning. My work focuses on decision analysis, machine learning, and explainable AI with long-term startup potential.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn primary">View Projects</a>
+      <a href="#resume" class="btn">Download Resume</a>
+      <a href="#projects" class="btn">Read HDIS Paper</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
 
 <!-- ABOUT -->
-<section id="about" class="container reveal">
-<h2>About</h2>
-<div class="block">
-<p>
-I am a first-year B.Tech student specializing in Data Science.
-My interest lies in understanding how intelligent systems
-learn from decisions, failures, and long-term outcomes.
-</p>
-</div>
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Thinking in<br>Systems</h2>
+        <p>I am currently pursuing a degree in Data Science and actively exploring how artificial intelligence can assist humans in making better decisions. Instead of focusing only on accuracy metrics, I am interested in understanding patterns, failures, and behavioral signals behind decisions.</p>
+        <p class="goal">"My long-term goal is to build AI systems that are practical, explainable, and human-centered."</p>
+      </div>
+      <div class="skills-block reveal" style="transition-delay:0.15s">
+        <div class="section-label">Skills</div>
+        <div class="skill-group">
+          <h4>Programming</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">C (basic)</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Data Science &amp; AI</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">Data Analysis</span>
+            <span class="skill-tag">Feature Engineering</span>
+            <span class="skill-tag">Model Evaluation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Tools &amp; Libraries</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Scikit-learn</span>
+            <span class="skill-tag">Streamlit</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Conceptual Strengths</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Decision Modeling</span>
+            <span class="skill-tag">Behavioral Analysis</span>
+            <span class="skill-tag">System Design Thinking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- HDIS -->
-<section id="hdis" class="container reveal">
-<h2>Human Decision Intelligence System (HDIS)</h2>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Selected Projects</div>
+      <h2 class="section-title">Work &amp;<br>Experiments</h2>
+    </div>
+    <div class="projects-list">
 
-<div class="diagram">
-<div class="node" data-info="Collects historical decisions, context, and timing data.">Decision Ingestion</div>
-<div class="node" data-info="Transforms decisions into numerical and categorical features.">Decision Encoder</div>
-<div class="node" data-info="Learns long-term behavior and decision patterns.">Behavior Model</div>
-<div class="node" data-info="Evaluates success and failure outcomes.">Outcome Analyzer</div>
-<div class="node" data-info="Simulates alternative decision paths.">Counterfactual Engine</div>
-<div class="node" data-info="Recommends decisions with explanations.">Recommendation Layer</div>
-</div>
+      <!-- PROJECT 1 -->
+      <div class="project-item reveal">
+        <div class="project-num">01</div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-tag">Main Project</span>
+            <span class="project-tag blue">Research</span>
+            <span class="project-status">● Conceptual Design + Experimentation Phase</span>
+          </div>
+          <h3 class="project-title">Human Decision Intelligence System</h3>
+          <p class="project-subtitle">Decision-Centric Artificial Intelligence (HDIS)</p>
+          <p class="project-desc">HDIS is a research-driven AI project aimed at modeling how humans make decisions based on historical choices, behavioral patterns, and outcomes. The system focuses on learning from failures and simulating alternative decision paths to recommend better future decisions.</p>
+          <ul class="project-bullets">
+            <li>Focuses on decision behavior, not just prediction accuracy</li>
+            <li>Includes outcome learning and counterfactual thinking mechanisms</li>
+            <li>Designed as a long-term research and startup project</li>
+          </ul>
+          <div class="project-links">
+            <a href="#" class="project-link">Project Report (PDF)</a>
+            <a href="#" class="project-link">Future Roadmap</a>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
 
-<div id="hdis-info">
-Click a module to see explanation.
-</div>
+      <!-- PROJECT 2 -->
+      <div class="project-item reveal" style="transition-delay:0.1s">
+        <div class="project-num">02</div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-tag muted">Academic</span>
+            <span class="project-status">● Completed</span>
+          </div>
+          <h3 class="project-title">School Management System</h3>
+          <p class="project-subtitle">Data handling, logic building &amp; system workflows</p>
+          <p class="project-desc">A basic system developed to understand data handling, logic building, and system workflows. Strengthened core programming fundamentals and introduced structured thinking in software development.</p>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
 
-<p style="margin-top:16px">
-<a href="Human_Decision_Intelligence_System_Report.pdf" target="_blank">
-Read detailed HDIS report (PDF) →
-</a>
-</p>
+      <!-- PROJECT 3 -->
+      <div class="project-item reveal" style="transition-delay:0.2s">
+        <div class="project-num">03</div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-tag muted">Coming Soon</span>
+            <span class="project-status">● In Planning</span>
+          </div>
+          <h3 class="project-title">Data Analysis / ML Exploration</h3>
+          <p class="project-subtitle">Research exploration or mini-project</p>
+          <p class="project-desc">Future project — a data analysis experiment, ML mini-project, or research exploration. Currently scoping ideas in behavioral data modeling and decision-support systems.</p>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<!-- BLOG -->
-<section id="blog" class="container reveal">
-<h2>Notes & Research</h2>
-
-<a onclick="loadPost('decision')">Decision Intelligence</a> ·
-<a onclick="loadPost('learning')">Learning Data Science</a>
-
-<div id="blog-content" class="block">
-Select a note to read.
-</div>
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="research-grid">
+      <div class="reveal">
+        <div class="section-label">Research Interests</div>
+        <h2 class="section-title" style="color:var(--paper)">What I<br>Think About</h2>
+        <div class="research-note">
+          <p>"I treat my projects as evolving research problems rather than one-time academic submissions."</p>
+        </div>
+      </div>
+      <div class="research-interests reveal" style="transition-delay:0.15s">
+        <div class="interest-item">
+          <div class="interest-num">01</div>
+          <div class="interest-content">
+            <h4>Decision Intelligence Systems</h4>
+            <p>Building AI that reasons about choices, not just outcomes — modeling the full decision pathway.</p>
+          </div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-num">02</div>
+          <div class="interest-content">
+            <h4>Explainable AI</h4>
+            <p>Making model behavior transparent and interpretable to the humans who rely on them.</p>
+          </div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-num">03</div>
+          <div class="interest-content">
+            <h4>Behavioral Data Modeling</h4>
+            <p>Extracting meaningful signals from how people act, fail, and adapt over time.</p>
+          </div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-num">04</div>
+          <div class="interest-content">
+            <h4>AI for Human-Centered Systems</h4>
+            <p>Designing systems where AI augments human judgment rather than replacing it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- RESUME -->
-<section id="resume" class="container reveal">
-<h2>Resume</h2>
-
-<button onclick="downloadPDF()">Download PDF</button>
-
-<div id="resume-content" class="block">
-<h3>Rishav Raj Singh</h3>
-<p>Indore, Madhya Pradesh, India</p>
-<p>📞 9162032147 | 📧 rishavs8207@gmail.com</p>
-
-<h3>Career Objective</h3>
-<p>
-Aspiring Data Scientist with a keen interest in machine learning and data analysis,
-seeking opportunities to apply statistical thinking and programming skills
-to solve practical problems.
-</p>
-
-<h3>Education</h3>
-<p>
-B.Tech CSE (Data Science) – IPS Academy<br>
-Expected Graduation: 2029
-</p>
-
-<h3>Skills</h3>
-<ul>
-<li>C, Java (basic)</li>
-<li>Python (learning)</li>
-<li>SQL, Excel, Tableau</li>
-<li>Data analysis fundamentals</li>
-</ul>
-
-<h3>Projects</h3>
-<ul>
-<li>Equality Data Analysis – Excel</li>
-<li>Tableau Data Visualization</li>
-<li>Self Decision Engine (Concept)</li>
-<li>Student Performance Analysis</li>
-</ul>
-
-<h3>Certifications</h3>
-<ul>
-<li>Deloitte Data Analytics – Forage</li>
-<li>Spoken Tutorial in C – IIT Bombay</li>
-</ul>
-
-<h3>Languages</h3>
-<p>English, Hindi, Nepali</p>
-
-<h3>Interests</h3>
-<p>Cricket, Travelling</p>
-</div>
+<section id="resume">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Resume</div>
+      <h2 class="section-title">Background &amp;<br>Credentials</h2>
+    </div>
+    <div class="resume-layout">
+      <div class="resume-info reveal" style="transition-delay:0.1s">
+        <div class="resume-block">
+          <h4>Education</h4>
+          <div class="resume-line">
+            <span>Data Science (B.Sc. / B.Tech)</span>
+            <span>In Progress</span>
+          </div>
+        </div>
+        <div class="resume-block">
+          <h4>Core Competencies</h4>
+          <div class="resume-line"><span>Machine Learning</span><span>Scikit-learn, Python</span></div>
+          <div class="resume-line"><span>Data Analysis</span><span>Pandas, NumPy</span></div>
+          <div class="resume-line"><span>Decision Modeling</span><span>Research Conceptual</span></div>
+          <div class="resume-line"><span>Explainable AI</span><span>XAI Methods</span></div>
+          <div class="resume-line"><span>App Prototyping</span><span>Streamlit</span></div>
+          <div class="resume-line"><span>Version Control</span><span>Git / GitHub</span></div>
+        </div>
+        <div class="resume-block">
+          <h4>Projects</h4>
+          <div class="resume-line"><span>HDIS — Decision Intelligence System</span><span>Research</span></div>
+          <div class="resume-line"><span>School Management System</span><span>Academic</span></div>
+        </div>
+      </div>
+      <div class="resume-download reveal" style="transition-delay:0.2s">
+        <div class="download-card">
+          <div class="icon">📄</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.8rem;">Full Resume</h3>
+          <p>Download the complete PDF version of my resume including education, skills, projects, and research interests.</p>
+          <a href="#" class="btn primary" style="display:inline-block">Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer class="container">
-© <span id="year"></span> Rishav Raj Singh  
-<br>Shared for academic and portfolio purposes.
-<br><br>
-<a onclick="scrollToId('about')">About</a> ·
-<a onclick="scrollToId('hdis')">HDIS</a> ·
-<a onclick="scrollToId('blog')">Blog</a> ·
-<a onclick="scrollToId('resume')">Resume</a>
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Notes &amp; Learnings</div>
+      <h2 class="section-title">Things I<br>Write Down</h2>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-date">Coming Soon</div>
+        <h3>What I learned while designing a decision intelligence system</h3>
+        <p>Exploring the difference between building systems that predict outcomes versus systems that understand decision-making processes.</p>
+        <span class="blog-coming">Draft in progress →</span>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.1s">
+        <div class="blog-date">Coming Soon</div>
+        <h3>Why prediction alone is not enough in AI</h3>
+        <p>Most ML models optimize for accuracy. But accuracy is not the same as usefulness — especially when humans are the decision-makers.</p>
+        <span class="blog-coming">Draft in progress →</span>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.2s">
+        <div class="blog-date">Coming Soon</div>
+        <h3>Mistakes I made while learning data science</h3>
+        <p>Honest reflections on wrong assumptions, wasted effort, and the mindset shifts that made learning click.</p>
+        <span class="blog-coming">Draft in progress →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's<br>Connect</h2>
+        <p>I'm open to conversations about research collaborations, data science projects, internship opportunities, or just exchanging ideas about decision intelligence and AI.</p>
+      </div>
+      <div class="contact-links reveal" style="transition-delay:0.15s">
+        <a href="mailto:rishavsingh@email.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-val">rishavsingh@email.com</div>
+          </div>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/in/rishavsingh" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/rishavsingh</div>
+          </div>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://github.com/rishavsingh" target="_blank" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-val">github.com/rishavsingh</div>
+          </div>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Rishav Singh — Concepts and projects are shared for academic and portfolio purposes.</span>
+  <span>Built with intention · Data Science &amp; AI</span>
 </footer>
 
 <script>
-/* YEAR */
-document.getElementById("year").innerText=new Date().getFullYear();
-
-/* DARK MODE */
-document.getElementById("mode").onclick=()=>{
-  document.body.classList.toggle("dark");
-  mode.innerText=document.body.classList.contains("dark")
-    ?"Light Mode":"Research Mode";
-};
-
-/* CLICK EFFECT */
-document.addEventListener("click",e=>{
-  const d=document.createElement("div");
-  d.className="click";
-  d.style.left=e.clientX+"px";
-  d.style.top=e.clientY+"px";
-  document.body.appendChild(d);
-  setTimeout(()=>d.remove(),600);
-});
-
-/* REVEAL */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add("active");
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+  function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .btn, .project-item, .blog-card, .skill-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.transform = 'translate(-50%,-50%) scale(0.6)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; });
   });
-},{threshold:0.15});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 
-/* SCROLL */
-function scrollToId(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* HDIS */
-document.querySelectorAll(".node").forEach(n=>{
-  n.onclick=()=>{
-    document.getElementById("hdis-info").innerText =
-      n.getAttribute("data-info");
-  };
-});
-
-/* BLOG */
-const posts={
-decision:`# Decision Intelligence
-Prediction alone is not intelligence.
-
-Decision intelligence focuses on understanding
-why decisions fail and how outcomes evolve.
-This thinking drives the HDIS project.`,
-learning:`# Learning Data Science
-Strong fundamentals and logical thinking
-matter more than shortcuts or tools.`
-};
-
-function loadPost(key){
-  let t=posts[key];
-  t=t.replace(/^# (.*)$/gm,"<h2>$1</h2>").replace(/\n/g,"<br>");
-  document.getElementById("blog-content").innerHTML=t;
-}
-
-/* PDF */
-function downloadPDF(){
-  html2pdf(document.getElementById("resume-content"),{
-    filename:"Rishav_Raj_Singh_Resume.pdf"
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+current ? 'var(--accent)' : ''; });
   });
-}
 </script>
-
 </body>
 </html>
